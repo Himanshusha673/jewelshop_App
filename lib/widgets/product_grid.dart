@@ -7,10 +7,12 @@ import 'package:provider/provider.dart';
 import '../Provider/product.dart';
 
 class ProductGrid extends StatelessWidget {
+  var showfavs;
+  ProductGrid(this.showfavs);
   @override
   Widget build(BuildContext context) {
     final productdata = Provider.of<ProductProvider>(context);
-    final products = productdata.items;
+    final products = showfavs ? productdata.favouriteItems : productdata.items;
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
       itemCount: products.length,
@@ -20,8 +22,12 @@ class ProductGrid extends StatelessWidget {
         crossAxisSpacing: 25,
         mainAxisSpacing: 25,
       ),
-      itemBuilder: (ctx, i) => ChangeNotifierProvider(
-        create: (c) => products[i],
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+        //create: (c) => products[i],
+        //we can use above line aslo But issue is that it recycles the
+        //widget and for memory optimisation we are using value constructor of changenotifier class
+        //int his scenario this value approch is best when single widget chanegs
+        value: products[i],
         child: ProductItems(
             //products[i].id, products[i].imageUrl, products[i].title,
             ),
