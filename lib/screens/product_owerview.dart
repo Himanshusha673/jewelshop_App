@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jewelshop/screens/cart_screen.dart';
 import 'package:jewelshop/widgets/badge.dart';
+import '../widgets/drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/product_grid.dart';
@@ -70,6 +71,7 @@ class _ProductOverviewState extends State<ProductOverview> {
           ],
         ),
       ]),
+      drawer: Mydrawer(),
       body: ProductGrid(showFavouritesOnly),
     );
   }

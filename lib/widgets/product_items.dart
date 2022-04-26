@@ -21,7 +21,7 @@ class ProductItems extends StatelessWidget {
     //provider of conetxt used foe just here for extracting datat from our change notify which is in our product
     // class in a variable product and if  we not  used listen false here, then it is used for also listen the
     // changes is to update
-    final cart = Provider.of<Cart>(context);
+    final cart = Provider.of<Cart>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -51,6 +51,23 @@ class ProductItems extends StatelessWidget {
               ),
               onPressed: () {
                 cart.additems(product.id, product.price, product.title);
+                Scaffold.of(context)
+                    .hideCurrentSnackBar(); //this will  remove existing snackbar and add new one
+                //changes in this scaffold shows the nearest scaffold of this one
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      "Added to the Cart!",
+                    ),
+                    duration: Duration(seconds: 2),
+                    action: SnackBarAction(
+                      label: 'UNDO',
+                      onPressed: () {
+                        cart.removeSingleItems(product.id);
+                      },
+                    ),
+                  ),
+                );
               },
             ),
             backgroundColor: Colors.black45,
