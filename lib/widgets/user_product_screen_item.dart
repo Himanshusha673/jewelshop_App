@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:jewelshop/Provider/products_provider.dart';
+import 'package:jewelshop/screens/edit_screen.dart';
 import 'package:provider/provider.dart';
 
 class UserproductItems extends StatelessWidget {
   final String title;
   final String imageUrl;
-  final String id;
+  final String? id;
 
-  UserproductItems(this.imageUrl, this.title, this.id);
+  UserproductItems(this.id, this.imageUrl, this.title);
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +26,15 @@ class UserproductItems extends StatelessWidget {
                 Icons.edit,
                 color: Theme.of(context).primaryColor,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(EditScreen.routeName, arguments: id);
+              },
             ),
             IconButton(
                 onPressed: () {
                   Provider.of<ProductProvider>(context, listen: false)
-                      .deleteItem(id);
+                      .deleteItem(id!);
                 },
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).errorColor)

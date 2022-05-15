@@ -50,7 +50,8 @@ class ProductItems extends StatelessWidget {
                 color: Theme.of(context).accentColor,
               ),
               onPressed: () {
-                cart.additems(product.id, product.price, product.title);
+                cart.additems(
+                    product.id.toString(), product.price, product.title);
                 Scaffold.of(context)
                     .hideCurrentSnackBar(); //this will  remove existing snackbar and add new one
                 //changes in this scaffold shows the nearest scaffold of this one
@@ -63,7 +64,7 @@ class ProductItems extends StatelessWidget {
                     action: SnackBarAction(
                       label: 'UNDO',
                       onPressed: () {
-                        cart.removeSingleItems(product.id);
+                        cart.removeSingleItems(product.id.toString());
                       },
                     ),
                   ),
